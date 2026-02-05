@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Bumble – Find Love & Meet New People</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #020617;
+            color: #fff;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #f43f5e;
+        }
+
+        .nav-links a {
+            color: #cbd5f5;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #f43f5e;
+        }
+
+        /* HERO */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: calc(100vh - 80px);
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #f43f5e;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #cbd5f5;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .buttons a {
+            padding: 12px 26px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #f43f5e;
+            color: #fff;
+        }
+
+        .btn-outline {
+            border: 1px solid #f43f5e;
+            color: #f43f5e;
+        }
+
+        .buttons a:hover {
+            opacity: 0.9;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 60px 20px;
+            background: #0f172a;
+            text-align: center;
+        }
+
+        .features h2 {
+            color: #f43f5e;
+            margin-bottom: 30px;
+        }
+
+        .feature-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .feature {
+            background: #020617;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        .feature h3 {
+            color: #f43f5e;
+        }
+
+        .feature p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+    <div class="logo">❤️ Love Bumble</div>
+    <div class="nav-links">
+        <a href="login.html">Login</a>
+        <a href="register.html">Sign Up</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Find Love. Chat Freely. Meet New People.</h1>
+        <p>
+            Love Bumble helps you match, chat, and connect with people around the world.
+            Safe. Secure. Real connections.
+        </p>
+        <div class="buttons">
+            <a href="register.html" class="btn-primary">Get Started</a>
+            <a href="login.html" class="btn-outline">Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+    <h2>Why Love Bumble?</h2>
+    <div class="feature-box">
+
+        <div class="feature">
+            <h3>❤️ Smart Matching</h3>
+            <p>Find people who share your interests and preferences.</p>
+        </div>
+
+        <div class="feature">
+            <h3>💬 Real-Time Chat</h3>
+            <p>Chat instantly with your matches and make real connections.</p>
+        </div>
+
+        <div class="feature">
+            <h3>🌍 Group Community</h3>
+            <p>Join public chat rooms and meet people openly.</p>
+        </div>
+
+        <div class="feature">
+            <h3>🎲 Meet Randomly</h3>
+            <p>Omegle-style random chat with safety controls.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 Love Bumble • Privacy • Terms • Community Guidelines
+</footer>
+
+</body>
+</html>

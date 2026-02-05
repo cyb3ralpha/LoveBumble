@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Chat | Love Bumble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/chat.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <h2>🎲 Random Chat</h2>
+    <a href="dashboard.html" class="back-btn">Back</a>
+</header>
+
+<main class="random-chat-container">
+
+    <div class="status" id="status">
+        <h3>🔍 Looking for someone to chat...</h3>
+        <div class="loader"></div>
+        <button class="stop-btn" onclick="stopSearch()">Stop</button>
+    </div>
+
+    <div class="chat-card hidden" id="chatCard">
+        <div class="messages" id="messages"></div>
+
+        <div class="input-box">
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+        <button class="next-btn" onclick="nextChat()">Next</button>
+    </div>
+
+</main>
+
+<script src="js/chat.js"></script>
+</body>
+</html>

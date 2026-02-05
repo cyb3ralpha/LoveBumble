@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Bumble | Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        /* HEADER */
+        .header {
+            background: #020617;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #f43f5e;
+        }
+
+        .back-btn {
+            margin-right: 15px;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .profile-pic {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f43f5e;
+        }
+
+        .profile-pic input {
+            display: none;
+        }
+
+        .profile-pic label {
+            display: inline-block;
+            margin-top: 10px;
+            background: #f43f5e;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #94a3b8;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+            background: #020617;
+            color: #fff;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        /* INTEREST TAGS */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #1e293b;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .tag.active {
+            background: #f43f5e;
+        }
+
+        /* SAVE */
+        .save-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #f43f5e;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <span class="back-btn" onclick="goBack()">← Back</span>
+    <h2>Edit Profile</h2>
+</div>
+
+<div class="container">
+
+    <!-- PROFILE PIC -->
+    <div class="profile-pic">
+        <img id="preview" src="assets/images/default-avatar.png">
+        <br>
+        <label for="photo">Change Photo</label>
+        <input type="file" id="photo" accept="image/*">
+    </div>
+
+    <!-- FORM -->
+    <form id="profileForm">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" id="age" min="18">
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+                <option value="">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Interested In</label>
+            <select id="preference">
+                <option value="">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Everyone</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Bio</label>
+            <textarea id="bio" placeholder="Tell something about yourself..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Interests</label>
+            <div class="tags" id="tags">
+                <div class="tag">Music</div>
+                <div class="tag">Movies</div>
+                <div class="tag">Travel</div>
+                <div class="tag">Fitness</div>
+                <div class="tag">Gaming</div>
+                <div class="tag">Tech</div>
+            </div>
+        </div>
+
+        <button type="submit" class="save-btn">Save Profile</button>
+    </form>
+
+</div>
+
+<script>
+    // ======================
+    // IMAGE PREVIEW
+    // ======================
+    document.getElementById("photo").addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            document.getElementById("preview").src = URL.createObjectURL(file);
+        }
+    });
+
+    // ======================
+    // INTEREST TAGS
+    // ======================
+    const tags = document.querySelectorAll(".tag");
+    tags.forEach(tag => {
+        tag.addEventListener("click", () => {
+            tag.classList.toggle("active");
+        });
+    });
+
+    // ======================
+    // SUBMIT FORM
+    // ======================
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const selectedTags = [];
+        document.querySelectorAll(".tag.active").forEach(tag => {
+            selectedTags.push(tag.innerText);
+        });
+
+        const formData = new FormData();
+        formData.append("name", name.value);
+        formData.append("age", age.value);
+        formData.append("gender", gender.value);
+        formData.append("preference", preference.value);
+        formData.append("bio", bio.value);
+        formData.append("interests", JSON.stringify(selectedTags));
+        formData.append("photo", photo.files[0]);
+
+        fetch("../backend/users/update_user.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Profile updated successfully!");
+        });
+    });
+
+    // ======================
+    // BACK
+    // ======================
+    function goBack() {
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+</body>
+</html>

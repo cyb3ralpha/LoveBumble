@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Love Bumble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/auth.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<div class="login-container">
+    <div class="login-box">
+        <h1>💖 Love Bumble</h1>
+        <p class="subtitle">Login to find your match</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="email" required>
+                <label>Email</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" required>
+                <label>Password</label>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+
+            <p class="error" id="errorMsg"></p>
+
+            <p class="register-link">
+                Don’t have an account?
+                <a href="register.html">Create one</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script src="assets/js/auth.js"></script>
+</body>
+</html>

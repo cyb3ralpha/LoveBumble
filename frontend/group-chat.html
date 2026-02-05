@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Bumble | Group Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        /* HEADER */
+        .header {
+            background: #020617;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1e293b;
+        }
+        
+
+        .header h2 {
+            margin: 0;
+            color: #f43f5e;
+        }
+
+        .header button {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+
+        /* CONTAINER */
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* ROOMS */
+        .rooms {
+            width: 260px;
+            background: #020617;
+            border-right: 1px solid #1e293b;
+            overflow-y: auto;
+        }
+
+        .room {
+            padding: 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .room:hover, .room.active {
+            background: #1e293b;
+        }
+
+        /* CHAT AREA */
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 12px;
+        }
+
+        .message span {
+            color: #f43f5e;
+            font-size: 13px;
+        }
+
+        .message p {
+            margin: 4px 0 0;
+            background: #1e293b;
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        /* INPUT */
+        .input-box {
+            display: flex;
+            padding: 10px;
+            background: #020617;
+            border-top: 1px solid #1e293b;
+        }
+
+        .input-box input {
+            flex: 1;
+            padding: 10px;
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .input-box button {
+            margin-left: 10px;
+            padding: 10px 16px;
+            background: #f43f5e;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .rooms {
+                display: none;
+            }
+        }
+    </style>
+        <link rel="stylesheet" href="css/theme.css">
+        <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>🌍 Group Chat</h2>
+    <button onclick="goBack()">← Back</button>
+</div>
+
+<div class="container">
+
+    <!-- ROOMS -->
+    <div class="rooms" id="rooms">
+        <div class="room active" onclick="joinRoom('general')">💬 General</div>
+        <div class="room" onclick="joinRoom('dating')">❤️ Dating Talk</div>
+        <div class="room" onclick="joinRoom('tech')">💻 Tech</div>
+        <div class="room" onclick="joinRoom('city')">📍 City Chat</div>
+    </div>
+
+    <!-- CHAT -->
+    <div class="chat">
+        <div class="messages" id="messages"></div>
+
+        <div class="input-box">
+            <input type="text" id="messageInput" placeholder="Type message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // =========================
+    // CONFIG
+    // =========================
+    const userName = "CyberAlpha";  // from PHP session
+    let currentRoom = "general";
+    const wsUrl = "ws://localhost:5000";
+
+    const socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+            type: "join_group",
+            room: currentRoom,
+            user: userName
+        }));
+    };
+
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === "group_message") {
+            addMessage(data.user, data.message);
+        }
+    };
+
+    // =========================
+    // JOIN ROOM
+    // =========================
+    function joinRoom(room) {
+        currentRoom = room;
+        document.getElementById("messages").innerHTML = "";
+
+        socket.send(JSON.stringify({
+            type: "join_group",
+            room: room,
+            user: userName
+        }));
+
+        document.querySelectorAll(".room").forEach(r => r.classList.remove("active"));
+        event.target.classList.add("active");
+    }
+
+    // =========================
+    // SEND MESSAGE
+    // =========================
+    function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        socket.send(JSON.stringify({
+            type: "group_message",
+            room: currentRoom,
+            user: userName,
+            message: msg
+        }));
+
+        input.value = "";
+    }
+
+    // =========================
+    // UI MESSAGE
+    // =========================
+    function addMessage(user, msg) {
+        const messages = document.getElementById("messages");
+
+        const div = document.createElement("div");
+        div.className = "message";
+        div.innerHTML = `<span>${user}</span><p>${msg}</p>`;
+
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function goBack() {
+        window.location.href = "dashboard.html";
+    }
+
+    document.getElementById("messageInput")
+        .addEventListener("keypress", e => {
+            if (e.key === "Enter") sendMessage();
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Bumble | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        /* HEADER */
+        .header {
+            background: #020617;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .header h2 {
+            color: #f43f5e;
+            margin: 0;
+        }
+
+        .logout {
+            background: none;
+            border: 1px solid #f43f5e;
+            color: #f43f5e;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* DASHBOARD */
+        .dashboard {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #020617;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f43f5e;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #f43f5e;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* PROFILE PREVIEW */
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #020617;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            margin-bottom: 25px;
+        }
+
+        .profile-box img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-box button {
+            margin-left: auto;
+            background: #f43f5e;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .profile-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>❤️ Love Bumble</h2>
+    <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+
+    <!-- PROFILE PREVIEW -->
+    <div class="profile-box">
+        <img src="assets/images/default-avatar.png" alt="Profile">
+        <div>
+            <strong id="username">Welcome, User</strong><br>
+            <small id="userbio">Complete your profile to get better matches</small>
+        </div>
+        <button onclick="goTo('profile.html')">Edit Profile</button>
+    </div>
+
+    <!-- WELCOME -->
+    <div class="welcome">
+        <h3>Dashboard</h3>
+        <p>Find love, chat, and meet new people ❤️</p>
+    </div>
+
+    <!-- ACTION CARDS -->
+    <div class="cards">
+
+        <div class="card" onclick="goTo('match.html')">
+            <h3>🔥 Find Matches</h3>
+            <p>Swipe and match with people you like</p>
+        </div>
+
+        <div class="card" onclick="goTo('chat.html')">
+            <h3>💬 Private Chats</h3>
+            <p>Chat with your matches</p>
+        </div>
+
+        <div class="card" onclick="goTo('group-chat.html')">
+            <h3>🌍 Group Chat</h3>
+            <p>Join the community conversation</p>
+        </div>
+
+        <div class="card" onclick="goTo('random-chat.html')">
+            <h3>🎲 Meet New People</h3>
+            <p>Random chat like Omegle (Safe Mode)</p>
+        </div>
+
+        <div class="card" onclick="goTo('settings.html')">
+            <h3>⚙️ Settings</h3>
+            <p>Privacy, security & preferences</p>
+        </div>
+
+        <div class="card" onclick="goTo('report.html')">
+            <h3>🚨 Report</h3>
+            <p>Report inappropriate behavior</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // =========================
+    // LOAD USER DATA (FROM PHP)
+    // =========================
+    // Example: fetch from backend later
+    document.getElementById("username").innerText = "Welcome, CyberAlpha";
+    document.getElementById("userbio").innerText = "Cybersecurity enthusiast 😎";
+
+    // =========================
+    // NAVIGATION
+    // =========================
+    function goTo(page) {
+        window.location.href = page;
+    }
+
+    // =========================
+    // LOGOUT
+    // =========================
+    function logout() {
+        fetch("../backend/auth/logout.php")
+            .then(() => {
+                window.location.href = "login.html";
+            });
+    }
+</script>
+
+</body>
+</html>

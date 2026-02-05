@@ -1,0 +1,25 @@
+# MySQL connector
+mysql-connector-python
+
+# Web framework (Flask for API endpoints / real-time chat)
+Flask
+Flask-SocketIO
+
+# WebSocket support for real-time chat
+python-socketio
+eventlet
+
+# For password hashing
+bcrypt
+
+# For environment variables (DB credentials, secrets)
+python-dotenv
+
+# For datetime utilities
+pytz
+
+# Optional: profanity filtering (you can use custom module too)
+better-profanity
+
+# Optional: CORS support for front-end integration
+Flask-Cors

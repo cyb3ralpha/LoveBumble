@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Settings | Love Bumble</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    color: #333;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.container h2 {
+    text-align: center;
+    color: #ff416c;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff416c;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.toggle-group label {
+    font-weight: bold;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #ff416c;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.error, .success {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.error { color: red; }
+.success { color: green; }
+</style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Settings</h2>
+
+    <!-- Profile Settings -->
+    <form id="profileForm">
+        <h3>Profile Info</h3>
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" required>
+        </div>
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="email" required>
+        </div>
+        <button type="submit" class="submit-btn">Update Profile</button>
+        <p class="success" id="profileSuccess"></p>
+        <p class="error" id="profileError"></p>
+    </form>
+
+    <!-- Password Settings -->
+    <form id="passwordForm">
+        <h3>Change Password</h3>
+        <div class="input-group">
+            <label>Current Password</label>
+            <input type="password" id="currentPassword" required>
+        </div>
+        <div class="input-group">
+            <label>New Password</label>
+            <input type="password" id="newPassword" required>
+        </div>
+        <div class="input-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="confirmNewPassword" required>
+        </div>
+        <button type="submit" class="submit-btn">Change Password</button>
+        <p class="success" id="passwordSuccess"></p>
+        <p class="error" id="passwordError"></p>
+    </form>
+
+    <!-- Notification Settings -->
+    <h3>Notifications</h3>
+    <div class="toggle-group">
+        <label>Email Notifications</label>
+        <label class="switch">
+            <input type="checkbox" id="emailNotif">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="toggle-group">
+        <label>Push Notifications</label>
+        <label class="switch">
+            <input type="checkbox" id="pushNotif">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+</div>
+
+<script>
+// --- Profile Form ---
+document.getElementById("profileForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const profileError = document.getElementById("profileError");
+    const profileSuccess = document.getElementById("profileSuccess");
+
+    profileError.textContent = "";
+    profileSuccess.textContent = "";
+
+    if(!fullName || !email){
+        profileError.textContent = "All fields are required!";
+        return;
+    }
+
+    // Replace with PHP API
+    console.log("Profile Updated:", {fullName, email});
+    profileSuccess.textContent = "Profile updated successfully!";
+});
+
+// --- Password Form ---
+document.getElementById("passwordForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const current = document.getElementById("currentPassword").value;
+    const newPass = document.getElementById("newPassword").value;
+    const confirmPass = document.getElementById("confirmNewPassword").value;
+    const passwordError = document.getElementById("passwordError");
+    const passwordSuccess = document.getElementById("passwordSuccess");
+
+    passwordError.textContent = "";
+    passwordSuccess.textContent = "";
+
+    if(newPass !== confirmPass){
+        passwordError.textContent = "New passwords do not match!";
+        return;
+    }
+
+    // Replace with PHP API
+    console.log("Password Change:", {current, newPass});
+    passwordSuccess.textContent = "Password changed successfully!";
+});
+</script>
+
+</body>
+</html>

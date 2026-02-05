@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Bumble | Login & Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* --- General --- */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 30px;
+    width: 360px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* --- Tabs --- */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background: #ddd;
+    color: #333;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    transition: 0.3s;
+}
+
+.tabs button.active {
+    background: #ff416c;
+    color: #fff;
+}
+
+form {
+    display: none;
+    text-align: left;
+}
+
+form.active {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.input-group label {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    font-size: 14px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    left: 5px;
+    font-size: 12px;
+    color: #ff416c;
+    background: #fff;
+    padding: 0 3px;
+}
+
+button.submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff416c;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+p.switch {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+p.switch a {
+    color: #ff416c;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+    text-align: center;
+}
+</style>
+<link rel="stylesheet" href="css/theme.css">
+<script src="js/config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>💖 Love Bumble</h2>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('login')">Login</button>
+        <button class="tab-btn" onclick="showTab('register')">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="active">
+        <div class="input-group">
+            <input type="email" id="loginEmail" required>
+            <label>Email</label>
+        </div>
+        <div class="input-group">
+            <input type="password" id="loginPassword" required>
+            <label>Password</label>
+        </div>
+        <button type="submit" class="submit-btn">Login</button>
+        <p class="error" id="loginError"></p>
+        <p class="switch">Don't have an account? <a onclick="showTab('register')">Register</a></p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm">
+        <div class="input-group">
+            <input type="text" id="regName" required>
+            <label>Full Name</label>
+        </div>
+        <div class="input-group">
+            <input type="email" id="regEmail" required>
+            <label>Email</label>
+        </div>
+        <div class="input-group">
+            <input type="password" id="regPassword" required>
+            <label>Password</label>
+        </div>
+        <div class="input-group">
+            <input type="password" id="regConfirmPassword" required>
+            <label>Confirm Password</label>
+        </div>
+        <button type="submit" class="submit-btn">Sign Up</button>
+        <p class="error" id="regError"></p>
+        <p class="switch">Already have an account? <a onclick="showTab('login')">Login</a></p>
+    </form>
+</div>
+
+<script>
+// --- Tab Switching ---
+function showTab(tab) {
+    document.getElementById("loginForm").classList.remove("active");
+    document.getElementById("registerForm").classList.remove("active");
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+
+    if(tab === "login") {
+        document.getElementById("loginForm").classList.add("active");
+        document.querySelector(".tab-btn:nth-child(1)").classList.add("active");
+    } else {
+        document.getElementById("registerForm").classList.add("active");
+        document.querySelector(".tab-btn:nth-child(2)").classList.add("active");
+    }
+}
+
+// --- Login Submit ---
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const loginError = document.getElementById("loginError");
+
+    // Dummy check (replace with fetch to PHP)
+    if(email === "test@test.com" && password === "123456"){
+        alert("Login successful!");
+        loginError.textContent = "";
+        // redirect to dashboard
+        window.location.href = "dashboard.html";
+    } else {
+        loginError.textContent = "Invalid email or password!";
+    }
+});
+
+// --- Register Submit ---
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const name = document.getElementById("regName").value;
+    const email = document.getElementById("regEmail").value;
+    const password = document.getElementById("regPassword").value;
+    const confirmPassword = document.getElementById("regConfirmPassword").value;
+    const regError = document.getElementById("regError");
+
+    if(password !== confirmPassword){
+        regError.textContent = "Passwords do not match!";
+        return;
+    }
+
+    // Dummy success (replace with fetch to PHP)
+    alert(`Account created for ${name}!`);
+    regError.textContent = "";
+    // Automatically switch to login tab
+    showTab('login');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Match | Love Bumble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/match.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <h2>💘 Love Bumble</h2>
+    <a href="dashboard.html" class="back-btn">Dashboard</a>
+</header>
+
+<main class="match-container">
+
+    <!-- Waiting State -->
+    <div class="status-card" id="statusCard">
+        <h3>🔍 Finding a Match...</h3>
+        <p>We’re connecting you with someone new</p>
+        <div class="loader"></div>
+
+        <button class="stop-btn" onclick="stopMatching()">Stop</button>
+    </div>
+
+    <!-- Connected State -->
+    <div class="match-card hidden" id="matchCard">
+        <img src="assets/images/ui/default-user.png" id="matchPhoto">
+        <h3 id="matchName">Connected!</h3>
+        <p id="matchBio">Say hi 👋 and start chatting</p>
+
+        <div class="actions">
+            <button class="chat-btn" onclick="goToChat()">Start Chat</button>
+            <button class="next-btn" onclick="findNext()">Next Match</button>
+        </div>
+    </div>
+
+</main>
+
+<script src="js/match.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile | Love Bumble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/profile.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <h2>💖 Love Bumble</h2>
+    <a href="dashboard.html" class="back-btn">Back</a>
+</header>
+
+<main class="profile-container">
+
+    <div class="profile-card">
+        <img src="assets/images/ui/default-user.png" id="profilePhoto" alt="Profile Photo">
+
+        <h2 id="profileName">Alex, 22</h2>
+        <p id="profileBio">Music lover, traveler, foodie. Always ready for an adventure ✈️</p>
+
+        <div class="profile-info">
+            <p><strong>Gender:</strong> <span id="profileGender">Male</span></p>
+            <p><strong>Interested in:</strong> <span id="profilePreference">Female</span></p>
+        </div>
+
+        <div class="interests">
+            <h3>Interests</h3>
+            <div class="tags" id="profileTags">
+                <div class="tag">Music</div>
+                <div class="tag">Travel</div>
+                <div class="tag">Fitness</div>
+                <div class="tag">Movies</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="chat-btn" onclick="startChat()">💬 Chat</button>
+            <button class="like-btn" onclick="likeProfile()">❤️ Like</button>
+        </div>
+    </div>
+
+</main>
+
+<script src="assets/js/profile.js"></script>
+</body>
+</html>

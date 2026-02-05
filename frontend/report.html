@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Report User | Love Bumble</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 30px;
+    width: 360px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.container h2 {
+    color: #ff416c;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff416c;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success {
+    color: green;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+}
+</style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Report User</h2>
+    <form id="reportForm">
+        <div class="input-group">
+            <label for="username">Username of Reported User</label>
+            <input type="text" id="username" required placeholder="Enter username">
+        </div>
+
+        <div class="input-group">
+            <label for="reason">Reason</label>
+            <select id="reason" required>
+                <option value="">Select reason</option>
+                <option value="spam">Spam</option>
+                <option value="inappropriate">Inappropriate Behavior</option>
+                <option value="harassment">Harassment</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="details">Details (optional)</label>
+            <textarea id="details" rows="4" placeholder="Provide more information..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Report</button>
+
+        <p class="error" id="errorMsg"></p>
+        <p class="success" id="successMsg"></p>
+    </form>
+</div>
+
+<script>
+document.getElementById("reportForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const reason = document.getElementById("reason").value;
+    const details = document.getElementById("details").value.trim();
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    errorMsg.textContent = "";
+    successMsg.textContent = "";
+
+    if(!username || !reason){
+        errorMsg.textContent = "Please fill all required fields!";
+        return;
+    }
+
+    // Replace this with actual backend API call
+    const reportData = {
+        username: username,
+        reason: reason,
+        details: details
+    };
+
+    console.log("Report submitted:", reportData);
+    successMsg.textContent = "Report submitted successfully!";
+    document.getElementById("reportForm").reset();
+});
+</script>
+
+</body>
+</html>

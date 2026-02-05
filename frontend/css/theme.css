@@ -1,0 +1,17 @@
+/* Simple global theme for LoveBumble */
+:root{
+  --bg:#0f172a;
+  --panel:#020617;
+  --muted:#94a3b8;
+  --accent:#f43f5e;
+  --card:#0b1220;
+  --text:#e6eef8;
+}
+body{background:var(--bg);color:var(--text);font-family: 'Poppins', Arial, sans-serif;margin:0}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+input,textarea{padding:8px;border-radius:6px;border:1px solid #1e293b;background:transparent;color:var(--text)}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.card{background:var(--panel);padding:12px;border-radius:10px;border:1px solid #111827}
+a{color:var(--accent);text-decoration:none}
+@media (max-width:768px){.container{padding:12px}}

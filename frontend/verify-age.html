@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Age Verification | Love Bumble</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 30px;
+    width: 360px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.container h2 {
+    color: #ff416c;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff416c;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.error, .success {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.error { color: red; }
+.success { color: green; }
+</style>
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Verify Your Age</h2>
+    <p>To access Love Bumble, you must be 18 years or older.</p>
+
+    <form id="ageForm">
+        <div class="input-group">
+            <label for="birthDate">Date of Birth</label>
+            <input type="date" id="birthDate" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Verify Age</button>
+        <p class="error" id="errorMsg"></p>
+        <p class="success" id="successMsg"></p>
+    </form>
+</div>
+
+<script>
+document.getElementById("ageForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const birthDate = document.getElementById("birthDate").value;
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    errorMsg.textContent = "";
+    successMsg.textContent = "";
+
+    if(!birthDate){
+        errorMsg.textContent = "Please enter your date of birth!";
+        return;
+    }
+
+    const today = new Date();
+    const dob = new Date(birthDate);
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if(m < 0 || (m === 0 && today.getDate() < dob.getDate())){
+        age--;
+    }
+
+    if(age >= 18){
+        successMsg.textContent = "Age verified! Redirecting...";
+        // In production, set session and redirect
+        setTimeout(() => {
+            window.location.href = "register.html"; // Or dashboard if already registered
+        }, 1500);
+    } else {
+        errorMsg.textContent = "Sorry, you must be at least 18 years old to use Love Bumble.";
+    }
+});
+</script>
+
+</body>
+</html>

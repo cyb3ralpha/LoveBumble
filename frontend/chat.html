@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Bumble | Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/config.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 900px;
+            margin: auto;
+            background: #020617;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: #020617;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #f43f5e;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            max-width: 70%;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.me {
+            background: #f43f5e;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.them {
+            background: #1e293b;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #020617;
+            border-top: 1px solid #1e293b;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #020617;
+            color: #fff;
+            border: 1px solid #1e293b;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px 18px;
+            background: #f43f5e;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chat-input button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    
+    <!-- HEADER -->
+    <div class="chat-header">
+        <h3 id="chatUser">💬 Chat</h3>
+        <button onclick="reportUser()">Report</button>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="chat-messages" id="messages"></div>
+
+    <!-- INPUT -->
+    <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+</div>
+
+<script>
+    // =========================
+    // CONFIG (DYNAMIC LATER)
+    // =========================
+    const userId = "USER_1";       // from PHP session
+    const matchId = "MATCH_123";   // unique match room
+    const wsUrl = "ws://localhost:5000";
+
+    // =========================
+    // WEBSOCKET CONNECTION
+    // =========================
+    const socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => {
+        console.log("Connected to chat server");
+
+        socket.send(JSON.stringify({
+            type: "join_private",
+            match_id: matchId,
+            user_id: userId
+        }));
+    };
+
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === "message") {
+            addMessage(data.message, data.sender === userId);
+        }
+    };
+
+    socket.onerror = (error) => {
+        console.error("WebSocket Error:", error);
+    };
+
+    // =========================
+    // SEND MESSAGE
+    // =========================
+    function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+
+        if (text === "") return;
+
+        socket.send(JSON.stringify({
+            type: "private_message",
+            match_id: matchId,
+            sender: userId,
+            message: text
+        }));
+
+        addMessage(text, true);
+        input.value = "";
+    }
+
+    // =========================
+    // ADD MESSAGE TO UI
+    // =========================
+    function addMessage(text, isMe) {
+        const messages = document.getElementById("messages");
+        const div = document.createElement("div");
+
+        div.className = "message " + (isMe ? "me" : "them");
+        div.textContent = text;
+
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    // =========================
+    // REPORT USER
+    // =========================
+    function reportUser() {
+        if (confirm("Report this user for inappropriate behavior?")) {
+            fetch("../backend/report/report_user.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ match_id: matchId })
+            });
+
+            alert("User reported successfully.");
+        }
+    }
+
+    // ENTER KEY SUPPORT
+    document.getElementById("messageInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+
+</body>
+</html>
